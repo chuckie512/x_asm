@@ -4,7 +4,7 @@
 
 import sys
 
-if len(sys.argv)<2:
+if len(sys.argv)< 3:
     print '[ERROR] please specify the path of the file you wish to assemble'
     quit()
 
@@ -60,8 +60,8 @@ for line in inf:
 
         elif part == 'sw':
             bn += '01001'
-            bn += "{0:03b}".format(int(line.split()[1][1]))
             bn += "{0:03b}".format(int(line.split()[2][1]))
+            bn += "{0:03b}".format(int(line.split()[1][1]))
             bn += "00000"
 
         elif part == 'liz':
