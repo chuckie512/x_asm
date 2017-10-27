@@ -60,9 +60,10 @@ for line in inf:
 
         elif part == 'sw':
             bn += '01001'
+            bn += '000'
             bn += "{0:03b}".format(int(line.split()[2][1]))
             bn += "{0:03b}".format(int(line.split()[1][1]))
-            bn += "00000"
+            bn += "00"
 
         elif part == 'liz':
             bn += '10000'
