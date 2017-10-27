@@ -123,7 +123,14 @@ for line in inf:
 
         if formt == 'I':
             bn += '{0:03b}'.format(int(line.split()[1][1]))
-            bn += "{0:08b}".format(int(line.split()[2]))
+            if int(line.split()[2]) < 0:
+                print "converting"
+                temp = int(line.split()[2])
+                temp = pow(2, 8) + temp
+                bn += "{0:08b}".format(temp)
+
+            else:
+                bn += "{0:08b}".format(int(line.split()[2]))
 
         hexOut = "{0:0>4X}".format(int(bn, 2))
         print '[DEBUG] %s %s' % (bn, hexOut)
