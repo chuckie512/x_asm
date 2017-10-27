@@ -1,0 +1,8 @@
+#This is a test
+LIZ R0 1
+ADD R1 R0 R0
+ADD R2 R1 R0
+PUT R0
+PUT R1
+PUT R2
+HALT

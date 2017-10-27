@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # an assembler for X, ISA from cs2410-proj1
 # (c) 2017 Charles Smith <cas275@pitt.edu>
 
@@ -14,7 +15,7 @@ if len(sys.argv) >= 3:
 
 print '[INFO] asemling %s to %s' %(source, dest)
 
-inf  = open(source, 'r')
+inf = open(source, 'r')
 outf = open(dest, 'w')
 
 for line in inf:
@@ -53,10 +54,16 @@ for line in inf:
             formt = 'R'
         elif part == 'lw':
             bn += '01000'
-            formt = 'R'
+            bn += "{0:03b}".format(int(line.split()[1][1]))
+            bn += "{0:03b}".format(int(line.split()[2][1]))
+            bn += "00000"
+
         elif part == 'sw':
             bn += '01001'
-            formt = 'R'
+            bn += "{0:03b}".format(int(line.split()[1][1]))
+            bn += "{0:03b}".format(int(line.split()[2][1]))
+            bn += "00000"
+
         elif part == 'liz':
             bn += '10000'
             formt = 'I'
@@ -80,20 +87,44 @@ for line in inf:
             formt = 'I'
         elif part == 'jr':
             bn += '01100'
-            formt = 'R'
+            bn += "000"
+            bn += "{0:03b}".format(int(line.split()[1][1]))
+            bn += "00000"
+
         elif part == 'jalr':
             bn += '10011'
-            formt = 'R'
+            bn += "{0:03b}".format(int(line.split()[1][1]))
+            bn += "{0:03b}".format(int(line.split()[2][1]))
+            bn += "00000"
+
         elif part == 'j':
             bn += '11000'
-            formt = 'IX'
+            bn += "{0:011b}".format(int(line.split()[1]))
+
         elif part == 'halt':
             bn += '01101'
-            formt = 'R'
+            bn += "00000000000"
+
         elif part == 'put':
             bn += '01110'
-            formt = 'R'
+            bn += "000"
+            bn += "{0:03b}".format(int(line.split()[1][1]))
+            bn += "00000"
+
         else:
             print '[WARNING] UNKOWN SYMBOL %s, skipping'
-        
-        print '[DEBUG] %s %s %s' % (bn, formt, 'XXXX')
+
+        if formt == 'R':
+            bn += "{0:03b}".format(int(line.split()[1][1]))
+            bn += "{0:03b}".format(int(line.split()[2][1]))
+            bn += "{0:03b}".format(int(line.split()[3][1]))
+            bn += "00"
+
+        if formt == 'I':
+            bn += '{0:03b}'.format(int(line.split()[1][1]))
+            bn += "{0:08b}".format(int(line.split()[2]))
+
+        hexOut = "{0:0>4X}".format(int(bn, 2))
+        print '[DEBUG] %s %s' % (bn, hexOut)
+
+        outf.write(hexOut + '\n')
