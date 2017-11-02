@@ -114,7 +114,7 @@ for line in inf:
             bn += "00000"
 
         else:
-            print '[WARNING] UNKOWN SYMBOL %s, skipping'
+            print '[WARNING] UNKNOWN SYMBOL %s, skipping' % (part)
 
         if formt == 'R':
             bn += "{0:03b}".format(int(line.split()[1][1]))
