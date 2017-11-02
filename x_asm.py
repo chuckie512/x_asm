@@ -1,6 +1,7 @@
 #!/usr/bin/env python
-# an assembler for X, ISA from cs2410-proj1
+# An assembler for X, ISA from cs2410-proj1
 # (c) 2017 Charles Smith <cas275@pitt.edu>
+# (c) 2017 Forbes Turley <fot3@pitt.edu>
 
 import sys
 
